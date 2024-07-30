@@ -1,0 +1,86 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
+
+import GalleryImage from '../../components/GalleryImage.astro';
+const images = await Astro.glob("/src/assets/ghana/*").then(files => {
+  return files.map(file => file.default);
+});
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<style>
+			main {
+				width: 65%;
+			}
+
+			
+
+.gallery {
+	column-count: 3;
+  	column-gap: 1em;
+	row-gap: 1em;
+
+}
+
+.gallery-item {
+    -webkit-column-break-inside: avoid;
+    break-inside: avoid;
+    page-break-inside: avoid;
+	margin-bottom: 1em;
+}
+
+
+
+			.gallery-item img {
+				width: 100%;
+				height: auto;
+				display: block; 
+			}
+
+			@media (max-width: 720px) {
+				ul {
+					gap: 0.5em;
+				}
+				ul li {
+					width: 100%;
+					text-align: center;
+				}
+				ul li:first-child {
+					margin-bottom: 0;
+				}
+				ul li:first-child .title {
+					font-size: 1.563em;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section>
+				<div class="gallery">
+					{
+						images.map(({ src /* width and height is also available */ }) => (
+							<div class="gallery-item">
+							<img
+								class="object-contain h-full rounded-lg"
+								src={src}
+								alt=""
+								loading="lazy"
+							/>
+							</div>
+						))
+					}
+					<!-- Add more images as needed -->
+				</div>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
