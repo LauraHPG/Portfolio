@@ -202,14 +202,6 @@ declare module 'astro:content' {
   data: InferEntrySchema<"education">
 } & { render(): Render[".md"] };
 };
-"experience (copy)": Record<string, {
-  id: string;
-  slug: string;
-  body: string;
-  collection: "experience (copy)";
-  data: any;
-  render(): Render[".md"];
-}>;
 "experience": {
 "virvig-vhir.md": {
 	id: "virvig-vhir.md";
@@ -219,14 +211,6 @@ declare module 'astro:content' {
   data: InferEntrySchema<"experience">
 } & { render(): Render[".md"] };
 };
-"photos": Record<string, {
-  id: string;
-  slug: string;
-  body: string;
-  collection: "photos";
-  data: any;
-  render(): Render[".md"];
-}>;
 
 	};
 
