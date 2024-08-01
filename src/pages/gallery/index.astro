@@ -42,13 +42,6 @@ const drawings = await Astro.glob("/src/assets/drawings/*").then(files => {
 				height: auto;
 				display: block; 
 			}
-
-			@media (max_width: 480px) {
-				
-				.gallery {
-					column-count: 1;
-				}
-			}
 			
 			@media (max-width: 720px) {
 				ul {
