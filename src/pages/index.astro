@@ -22,7 +22,7 @@ const education = (await getCollection('education')).sort(
 	(a, b) =>  b.data.startDate.valueOf() - a.data.endDate.valueOf()
 );
 
-const photos = await getCollection('gallery')
+
 ---
 
 <!doctype html>
@@ -48,7 +48,6 @@ const photos = await getCollection('gallery')
 			{
 				float:right;
 			}
-
 
 			#feature
 			{
@@ -109,18 +108,16 @@ const photos = await getCollection('gallery')
 				grid-template-rows: auto auto;
 				grid-template-columns: 1fr 1fr;
 				grid-auto-columns: 1fr;
-				justify-content: space-between;
 				display: flex;
 			}
 
 			.common-title
 			{
 				flex: 0 auto;
-  align-self: auto;
-  width: 100%;
-  max-width: 400px;
+				align-self: auto;
+				width: 100%;
+				max-width: 400px;
 			}
-			
 			@media (max-width: 720px) {
 				#main-banner
 				{
@@ -140,6 +137,11 @@ const photos = await getCollection('gallery')
 				ul li:first-child .title {
 					font-size: 1.563em;
 				} */
+
+				.title-info
+				{
+					display: block;
+				}
 			}
 
 		</style>
@@ -158,7 +160,7 @@ const photos = await getCollection('gallery')
 						<p>Other activities that I really enjoy are drawing and photography.</p>
 					</div>
 
-					<div>
+					<div id="pothoContainer">
 						<Image id="photo" width={500} src={photoLaura} alt="" />
 					</div>
 				</div>
@@ -197,7 +199,7 @@ const photos = await getCollection('gallery')
 					<div class="common-title">
 						<h2>Experience</h2>
 					</div>
-					<div>
+					<div class="common-info">
 						{
 							experience.map((post) => (
 								<img width={75} height={75} src={post.data.logoCompany} alt="" />
@@ -218,7 +220,7 @@ const photos = await getCollection('gallery')
 					<div class="common-title">
 						<h2>Education</h2>
 					</div>
-					<div>
+					<div class="common-info">
 
 						{
 							education.map((post) => (
@@ -235,13 +237,6 @@ const photos = await getCollection('gallery')
 			</section>
 
 
-			<section>
-						
-				<div class="title-info">	
-
-					<h2>Get in touch </h2>
-				</div>
-			</section>
 		</main>
 		<Footer />
 	</body>

@@ -43,6 +43,13 @@ const drawings = await Astro.glob("/src/assets/drawings/*").then(files => {
 				display: block; 
 			}
 
+			@media (max_width: 480px) {
+				
+				.gallery {
+					column-count: 1;
+				}
+			}
+			
 			@media (max-width: 720px) {
 				ul {
 					gap: 0.5em;
@@ -57,6 +64,9 @@ const drawings = await Astro.glob("/src/assets/drawings/*").then(files => {
 				ul li:first-child .title {
 					font-size: 1.563em;
 				}
+				.gallery {
+					column-count: 2;
+				}
 			}
 		</style>
 	</head>
@@ -68,7 +78,9 @@ const drawings = await Astro.glob("/src/assets/drawings/*").then(files => {
 				<h4>Ghana</h4>
 				<div class="gallery">
 					{
-						photosGhana.map(({ src /* width and height is also available */ }) => (
+						photosGhana
+						.filter(({ src }) => src.includes("downsampled"))
+						.map(({ src /* width and height is also available */ }) => (
 							<div class="gallery-item">
 							<img
 								class="object-contain h-full rounded-lg"

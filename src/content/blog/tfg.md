@@ -4,12 +4,73 @@ description: 'Project developed for the Bitsxlamarato Hackathon in 2021'
 pubDate: 'Jul 27 2024'
 heroImage: '/tfg.png'
 ---
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
+Drawing Metabolic Pathways and Networks in my Bachelor's thesis for the Informatics Engineer degree specialising in Computer Science at Universitat Politècnica de Catalunya.
 
-Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc. Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra massa massa ultricies mi.
+### Motivation
 
-Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
+Traditionally, metabolic pathways have been depicted manually or semiautomatically, a process that is often time-consuming and requires substantial manual adjustments. This thesis presents the development of an automated tool designed
+to draw and visualise metabolic pathways and networks, providing researchers with an interactive and efficient means to analyse complex biochemical data.
 
-Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id cursus metus aliquam eleifend mi.
+### Representation of the information
 
-Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
+Metabolic pathways can be easily described as hypergraphs. A hypergraph is a generalisation of a graph, in which an edge can join any number of vertices. 
+
+However, itn this thesis, we will use an algorithm designed for directed graphs. While our project focuses on exploring hypergraphs, they can be easily transformed and depicted as graphs. As we can see in the following image, i this transformation, hyperedges are represented as nodes, each with their respective incoming and outgoing edges.
+
+![1722537530437](image/tfg/1722537530437.png)
+
+### Drawing algorithm
+
+We decided tackle the problem using Sugiyama's algorithm, that places the nodes of a graph into horizontal layers such that the edges, modeling the relationships, point in a uniform direction. There are two main reasons:
+
+* The reasoning behind this decision is that in having the pathway arranged in this fashion, there is a clear flow of the reactions. Metabolic pathways often have a defined directionality, representing the flow of biochemical reactions from substrates to products. A hierarchical layout naturally aligns with this flow, making it easier to follow the sequence of reactions and understand the overall pathway.
+* Given the nature of the data, these graphs are always bipartite (compounds are always connected to reactions and never to another component, and similarly with the reactions) the hierarchical structure divides these two types of nodes into compound-layers and reaction-layers, making it easier to distinguish between different types of entities and their roles within the metabolic network.
+
+We used the [grandalf](https://github.com/bdcht/grandalf) package for python to execute the algorithm. However, as we can see in the following example, using simply Sugiyama's algorithm will not lead us to a good representation.
+
+![1722537768129](image/tfg/1722537768129.png)
+
+So we needed to process the data, before and after using the algorithm.
+
+### Data processing
+
+Metabolic networks belong to the class of scale-free networks, meaning that small number of compounds are involved in many reactions, whereas the majority of the other compounds are involved in only few reactions.
+
+Taking this information into consideration, the most common strategies have been either duplicating nodes or deleting nodes. Although deletion of nodes is one of the easiest ways to decrease edges, and hence, edge crossings, it is also important to take into account the lost information in the process. Thus, for this thesis, we decided to discard the option of deleting nodes and only duplicating them.
+
+We have taken two types of criteria in order to determine whether a node should be duplicated or not:
+
+* Given a threshold, duplicating all the nodes with degree higher than the specified.
+* Presence of a node in cycles. All the elementary circuits are computed, and the node that appears in most circuits is the candidate to be duplicated. As a result, we decrease the number of cycles.
+
+### Graph Fragmentation Index (GFI)
+
+We propose a metric to determine the threshold for each of the pathways, and split the compounds that exceed this threshold.
+
+The duplication operation results in graphs with more nodes while leaving the edges the same way as before, this leads to an increase in connected components. For instance, given a graph G with three nodes A, B, C, and there is an edge from the compound A to the B and another from B to C, when duplicating B, the resulting graph ends up with two connected components.
+
+The Graph Fragmentation Index (GFI) takes this characteristic and computes the limit threshold in which the original graph results in more than one connected component.
+
+![1722538185713](image/tfg/1722538185713.png)
+
+With the combination of the GFI and the cycle removal, we are able to preprocess all the graphs depending on their sizes, apply Sugiyama's algorithm and finally some minor tweaks to the output of the grandalf algorithm.
+
+### Results
+
+To visualise the results I also developed a web application using Django. Here are some examples of connected components of different pathways.
+
+![1722538658238](image/tfg/1722538658238.png)
+
+![1722538690576](image/tfg/1722538690576.png)
+
+![1722538695394](image/tfg/1722538695394.png)
+
+### Future research directions
+
+After finishing this thesis, some improvements that could be made are the following:
+
+* Creating a more precise mode to duplicate the compounds, in order to minimise the number of isolated reactions, for instance by having edges with weights depending the contribution on how much information they give about the general graph.
+* Visualise the set of metabolic pathways in a more coherent way in relation with reality, such as clustering the pathways that are near each other.
+* Getting user feedback in order to improve both the algorithm and the web application, as well as improving the user interface and through his or her experience to enhance usability and accessibility.
+
+Memoir | [Github repo](https://github.com/LauraHPG/TFG-Drawing-oriented-metabolic-pathways-and-networks)
