@@ -157,6 +157,13 @@ declare module 'astro:content' {
   collection: "blog";
   data: InferEntrySchema<"blog">
 } & { render(): Render[".md"] };
+"nasco-2024.md": {
+	id: "nasco-2024.md";
+  slug: "nasco-2024";
+  body: string;
+  collection: "blog";
+  data: InferEntrySchema<"blog">
+} & { render(): Render[".md"] };
 "space-odissey.md": {
 	id: "space-odissey.md";
   slug: "space-odissey";

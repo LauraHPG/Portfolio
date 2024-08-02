@@ -1,7 +1,7 @@
 ---
 title: "Drawing Metabolic Pathways and Networks"
 description: 'Project developed for the Bitsxlamarato Hackathon in 2021'
-pubDate: 'Jul 27 2024'
+pubDate: 'Jun 27 2024'
 heroImage: '/tfg.png'
 ---
 Drawing Metabolic Pathways and Networks in my Bachelor's thesis for the Informatics Engineer degree specialising in Computer Science at Universitat Politècnica de Catalunya.
@@ -13,7 +13,7 @@ to draw and visualise metabolic pathways and networks, providing researchers wit
 
 ### Representation of the information
 
-Metabolic pathways can be easily described as hypergraphs. A hypergraph is a generalisation of a graph, in which an edge can join any number of vertices. 
+Metabolic pathways can be easily described as hypergraphs. A hypergraph is a generalisation of a graph, in which an edge can join any number of vertices.
 
 However, itn this thesis, we will use an algorithm designed for directed graphs. While our project focuses on exploring hypergraphs, they can be easily transformed and depicted as graphs. As we can see in the following image, i this transformation, hyperedges are represented as nodes, each with their respective incoming and outgoing edges.
 

@@ -48,12 +48,26 @@ const posts = (await getCollection('blog')).sort(
 			ul li:first-child .title {
 				font-size: 2.369rem;
 			}
-			ul li img {
-				margin-bottom: 0.5rem;
+			ul li .img-container
+			{
+				max-width: 720;
+				max-height: 360;
+				overflow: hidden; 
 				border-radius: 12px;
+				aspect-ratio: 5/3;
+				position: relative;
 			}
-			ul li a {
-				display: block;
+			ul li .img-container img {
+				min-width: 100%;
+				min-height: 100%;
+				margin: 0;
+				padding: 0;
+				width: auto;
+				object-fit: cover;
+				position: absolute;    
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
 			}
 			.title {
 				margin: 0;
@@ -97,7 +111,9 @@ const posts = (await getCollection('blog')).sort(
 						posts.map((post) => (
 							<li>
 								<a href={`/blog/${post.slug}/`}>
+								<div class="img-container">
 									<img width={720} height={360} src={post.data.heroImage} alt="" />
+								</div>
 									<h4 class="title">{post.data.title}</h4>
 									<p class="date">
 										<FormattedDate date={post.data.pubDate} />
