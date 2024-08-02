@@ -82,10 +82,15 @@ const posts = (await getCollection('blog')).sort(
 			ul li a:hover .date {
 				color: rgb(var(--accent));
 			}
-			ul a:hover img {
+			ul a:hover .img-container {
 				box-shadow: var(--box-shadow);
 			}
 			@media (max-width: 720px) {
+				main
+				{
+					max-width: 85%;
+					padding: 1em;
+				}
 				ul {
 					gap: 0.5em;
 				}

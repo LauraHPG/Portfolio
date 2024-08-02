@@ -20,8 +20,8 @@ const drawings = await Astro.glob("/src/assets/drawings/*").then(files => {
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 		<style>
 			main {
-				width: 65%;
-			}		
+				width: 960px;
+			}	
 
 			.gallery {
 				column-count: 3;
@@ -44,6 +44,11 @@ const drawings = await Astro.glob("/src/assets/drawings/*").then(files => {
 			}
 			
 			@media (max-width: 720px) {
+				main
+				{
+					max-width: 85%;
+					padding: 1em;
+				}
 				ul {
 					gap: 0.5em;
 				}

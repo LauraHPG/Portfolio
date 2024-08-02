@@ -133,7 +133,9 @@ hr {
 		font-size: 18px;
 	}
 	main {
-		padding: 1em;
+		padding: 1em;	
+		width: 85%;
+		max-width: calc(100% - 0.5em);
 	}
 }
 
