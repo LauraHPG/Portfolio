@@ -12,7 +12,6 @@ const photosGhana = await Astro.glob("/src/assets/ghana/*").then(files => {
 const drawings = await Astro.glob("/src/assets/drawings/*").then(files => {
   return files.map(file => file.default);
 });
-
 ---
 
 <!doctype html>
@@ -114,20 +113,23 @@ const drawings = await Astro.glob("/src/assets/drawings/*").then(files => {
 				<h4>Ghana</h4>
 				<div class="gallery">
 					{
-						photosGhana
+					  photosGhana
 						.filter(({ src }) => src.includes("downsampled"))
-						.map(({ src /* width and height is also available */ }) => (
+						.map(({ src /* width and height is also available */ }) => {
+						  console.log(src);  // This will log each src to the console
+						  return (
 							<div class="gallery-item">
-							<img
+							  <img
 								class="object-contain h-full rounded-lg"
 								src={src}
 								alt=""
 								loading="lazy"
-							/>
+							  />
 							</div>
-						))
+						  );
+						})
 					}
-				</div>
+				  </div>
 			</section>
 
 			<!-- <section>
@@ -157,9 +159,17 @@ const drawings = await Astro.glob("/src/assets/drawings/*").then(files => {
 			{          
 				imagenes[i].addEventListener('click', function() {
 					var src = this.src;
+					console.log(src)
+					
+					var match = src.match(/^(.*\/IMG_\d+)/) + '.JPG';
 					var originalSrc = src.replace('_downsampled', ''); 
 					var overlayImg = document.getElementById('overlay-img');
-					overlayImg.src = originalSrc;
+					try{
+						overlayImg.src = match;
+					}catch
+					{
+						overlayImg.src = this.src;
+					}
 					overlay.style.display = 'flex';
 				});	
 			}
@@ -181,7 +191,7 @@ const drawings = await Astro.glob("/src/assets/drawings/*").then(files => {
 				overlayImg.src = ""
 				hideOverlay(); 
 			});
-			
+	
 		  </script>
 	</body>
 </html>
