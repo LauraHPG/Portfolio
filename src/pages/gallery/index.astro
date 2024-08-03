@@ -4,6 +4,7 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
 
+
 const photosGhana = await Astro.glob("/src/assets/ghana/*").then(files => {
   return files.map(file => file.default);
 });
@@ -35,6 +36,7 @@ const drawings = await Astro.glob("/src/assets/drawings/*").then(files => {
 				break-inside: avoid;
 				page-break-inside: avoid;
 				margin-bottom: 1em;
+				cursor: pointer;
 			}
 
 			.gallery-item img {
@@ -43,6 +45,35 @@ const drawings = await Astro.glob("/src/assets/drawings/*").then(files => {
 				display: block; 
 			}
 			
+			.overlay {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: rgba(0, 0, 0, 0.8);
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				z-index: 1000;
+			}
+			.overlay-content {
+				padding: auto;
+				align-items: center;
+				position: relative;
+			}  
+
+			.overlay-img {
+				max-width: 90vw;  /* Fit the image within 90% of the viewport width */
+				max-height: 90vh; /* Fit the image within 90% of the viewport height */
+				object-fit: contain; /* Ensure the image keeps its aspect ratio */
+				border-radius: 10px;
+				transition: transform 0.25s ease; /* Smooth zoom transition */
+			}
+			.zoomable {
+				cursor: zoom-in;
+			}
+
 			@media (max-width: 720px) {
 				main
 				{
@@ -70,6 +101,13 @@ const drawings = await Astro.glob("/src/assets/drawings/*").then(files => {
 	</head>
 	<body>
 		<Header />
+
+		<div class="overlay" id="overlay" style="display: none;">
+			<div class="overlay-content">
+				<img class="overlay-img" id="overlay-img" src="" alt="Enlarged" />
+			</div>
+		</div>
+
 		<main>
 			<section>
 				<h2>Photography</h2>
@@ -92,7 +130,7 @@ const drawings = await Astro.glob("/src/assets/drawings/*").then(files => {
 				</div>
 			</section>
 
-			<section>
+			<!-- <section>
 				<h2>Drawing</h2>
 				<div class="gallery">
 					{
@@ -108,8 +146,42 @@ const drawings = await Astro.glob("/src/assets/drawings/*").then(files => {
 						))
 					}
 				</div>
-			</section>
+			</section> -->
 		</main>
 		<Footer />
+		<script>
+			var imagenes = document.getElementsByTagName("img");
+			var overlay = document.getElementById('overlay');
+
+			for (var i=0; i<imagenes.length; i++)
+			{          
+				imagenes[i].addEventListener('click', function() {
+					var src = this.src;
+					var originalSrc = src.replace('_downsampled', ''); 
+					var overlayImg = document.getElementById('overlay-img');
+					overlayImg.src = originalSrc;
+					overlay.style.display = 'flex';
+				});	
+			}
+
+			const overlayImg = document.getElementById('overlay-img');
+
+			function hideOverlay() {
+				overlay.style.display = 'none';
+			}
+
+			overlayImg.addEventListener('click', function(event) {
+				event.stopPropagation(); 
+				console.log('Image clicked!');
+			});
+
+			overlay.addEventListener('click', function() {
+				console.log('Overlay clicked!');
+				var overlayImg = document.getElementById('overlay-img');
+				overlayImg.src = ""
+				hideOverlay(); 
+			});
+			
+		  </script>
 	</body>
 </html>
