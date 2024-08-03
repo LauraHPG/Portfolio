@@ -81,6 +81,7 @@ const education = (await getCollection('education')).sort(
 				border-radius: 12px;
 				aspect-ratio: 5/3;
 				position: relative;
+				margin-bottom: 0.5em;
 			}
 			ul li .img-container img {
 				min-width: 100%;
@@ -96,6 +97,7 @@ const education = (await getCollection('education')).sort(
 			}
 			ul li a {
 				display: block;
+				margin-bottom: 1em;
 			}
 			.title {
 				margin: 0;
@@ -132,8 +134,19 @@ const education = (await getCollection('education')).sort(
 			{
 				flex: 0 auto;
 				align-self: auto;
-				width: 100%;
-				max-width: 400px;
+				min-width: 300px;
+			}
+
+
+			.common-info img
+			{
+				width: 75;
+				height: 75;
+			}
+
+			h2
+			{
+				margin-bottom: 0.5em;
 			}
 
 			@media (max-width: 720px) {
@@ -159,6 +172,18 @@ const education = (await getCollection('education')).sort(
 				.title-info
 				{
 					display: block;
+				}
+
+				.common-info img
+				{
+					width: 40px;
+					height:min-content;
+					margin-right: 0.5em;
+				}
+				.logo-name
+				{
+					display: flex;
+					align-items: center;
 				}
 			}
 
@@ -222,8 +247,10 @@ const education = (await getCollection('education')).sort(
 					<div class="common-info">
 						{
 							experience.map((post) => (
-								<img width={75} height={75} src={post.data.logoCompany} alt="" />
-								<h5>{post.data.title}</h5>
+								<div class="logo-name">
+									<img width={75} height={75} src={post.data.logoCompany} alt="" />
+									<h5>{post.data.title}</h5>
+								</div>
 								<p><FormattedDate date={post.data.startDate}/> - <FormattedDate date={post.data.endDate}/> </p>
 								<p>{post.data.description}</p>
 
@@ -244,8 +271,10 @@ const education = (await getCollection('education')).sort(
 
 						{
 							education.map((post) => (
-								<img width={75} height={75} src={post.data.logoCompany} alt="" />
-								<h5>{post.data.title}</h5>
+								<div class="logo-name">
+									<img width={75} height={75} src={post.data.logoCompany} alt="" />
+									<h5>{post.data.title}</h5>
+								</div>
 								<p><FormattedDate date={post.data.startDate}/> - <FormattedDate date={post.data.endDate}/> </p>
 								<p>{post.data.description}</p>
 

@@ -35,7 +35,6 @@ body {
 	margin: 0;
 	padding: 0;
 	text-align: left;
-	background: linear-gradient(var(--gray-gradient)) no-repeat;
 	background-size: 100% 600px;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
@@ -138,6 +137,47 @@ hr {
 		max-width: calc(100% - 0.5em);
 	}
 }
+
+/* Default styles (for large screens/PCs) */
+h1 {
+    font-size: 3em;
+}
+h2 {
+    font-size: 2.5em;
+}
+h3 {
+    font-size: 2em;
+}
+
+/* Tablets (usually between 600px and 900px) */
+@media (max-width: 900px) and (min-width: 600px) {
+    h1 {
+        font-size: 2.5em;
+    }
+    h2 {
+        font-size: 2.2em;
+    }
+    h3 {
+        font-size: 1.8em;
+    }
+}
+
+/* Phones (usually up to 600px) */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 1.75em;
+    }
+    h2 {
+        font-size: 1.5em;
+    }
+    h3 {
+        font-size: 1.25em;
+    }
+	h4, h5, h6 {
+        font-size: 1em;
+    }
+}
+
 
 .sr-only {
 	border: 0;
