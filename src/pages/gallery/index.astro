@@ -164,12 +164,8 @@ const drawings = await Astro.glob("/src/assets/drawings/*").then(files => {
 					var match = src.match(/^(.*\/IMG_\d+)/) + '.JPG';
 					var originalSrc = src.replace('_downsampled', ''); 
 					var overlayImg = document.getElementById('overlay-img');
-					try{
-						overlayImg.src = match;
-					}catch
-					{
+					
 						overlayImg.src = this.src;
-					}
 					overlay.style.display = 'flex';
 				});	
 			}
