@@ -7,7 +7,7 @@ coauthors: Beatriz Malpartida, Guillermo Vidal
 ---
 ### Enhancing ICT Infrastructure and Training through Volunteer UPC Support for NASCO - Feeding Minds
 
-This past July, [Bea](https://www.linkedin.com/in/beatriz-malpartida-l%C3%B3pez-205283239/), [Guillermo](https://www.linkedin.com/in/guillermo-vidal-sul%C3%A9-821219295/) and I had the opportunity to participate in a volunteer program in Ghana. The initiative was a collaboration between AUCOOP, an association from the Polytechnic University of Catalonia (UPC), and NASCO Feeding Minds, an NGO dedicated to education and ICT development.
+This past July, Bea, Guillermo and I had the opportunity to participate in a volunteer program in Ghana. The initiative was a collaboration between AUCOOP, an association from the Polytechnic University of Catalonia (UPC), and NASCO Feeding Minds, an NGO dedicated to education and ICT development.
 
 ### Accomodation and Location
 
