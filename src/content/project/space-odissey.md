@@ -3,6 +3,7 @@ title: 'Space Odyssey'
 description: 'Web browser game developed for mobile devices.'
 pubDate: 'May 14 2022'
 heroImage: '/space-odissey.png'
+coauthors: Pere Carrillo, Sergio Blanco, Pol Vila
 ---
 This project was developed at the HackUPC 2022 Hackathon. It was a bigger hackathon than the previous one, with many more competitors, and we felt more pressure. However, we were able to create a project we are really proud of.
 

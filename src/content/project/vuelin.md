@@ -3,6 +3,7 @@ title: "Vuelín"
 description: 'Project developed for the Bitsxlamarato Hackathon in 2021'
 pubDate: 'May 14 2023'
 heroImage: '/vuelin.png'
+coauthors: Pere Carrillo, Paula Grau, Marc Ordóñez
 ---
 This project was developed at the HackUPC 2023 Hackathon for the challenge proposed by Vueling, which consisted in creating a game that could be played in a plane without internet.
 

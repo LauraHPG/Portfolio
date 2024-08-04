@@ -1,13 +1,14 @@
 ---
 import HeaderLink from './HeaderLink.astro';
 import { SITE_TITLE } from '../consts';
+import ThemeIcon from './ThemeIcon.astro';	
 ---
 
 <header>
 	<nav>
 		<h2><a href="/">{SITE_TITLE}</a></h2>
 		<div class="internal-links">
-			<HeaderLink href="/blog">Projects</HeaderLink>
+			<HeaderLink href="/project">Projects</HeaderLink>
 			<HeaderLink href="/gallery">Gallery</HeaderLink>
 
 			<!-- <HeaderLink href="/about">About</HeaderLink> -->
@@ -36,6 +37,7 @@ import { SITE_TITLE } from '../consts';
 
 				</svg>
 			</a>
+
 		</div>
 	</nav>
 </header>

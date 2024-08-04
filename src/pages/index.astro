@@ -10,7 +10,7 @@ import photoLaura from '../../imgs/fotoWeb.jpg';
 import { getCollection } from 'astro:content';
 import FormattedDate from '../components/FormattedDate.astro'
 
-const posts = (await getCollection('blog')).sort(
+const posts = (await getCollection('project')).sort(
 	(a, b) =>  b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
 
@@ -224,7 +224,7 @@ const education = (await getCollection('education')).sort(
 							posts[6]  
 						].map((post) => (
 							<li>
-								<a href={`/blog/${post.slug}/`}>
+								<a href={`/project/${post.slug}/`}>
 								<div class="img-container">
 									<img src={post.data.heroImage} alt="" />
 								</div>

@@ -3,6 +3,7 @@ title: "AUCOOP x NASCO Volunteering"
 description: 'Volunteering experience in Ghana within the collaboraiton of AUCOOP and NASCO'
 pubDate: 'Jul 8 2024'
 heroImage: '/nasco-2024.JPG'
+coauthors: Beatriz Malpartida, Guillermo Vidal
 ---
 ### Enhancing ICT Infrastructure and Training through Volunteer UPC Support for NASCO - Feeding Minds
 
@@ -30,7 +31,6 @@ Our main tasks were as follows:
 ![1722586178277](image/nasco-2024/1722586178277.png)
 
 ![1722586193931](image/nasco-2024/1722586193931.png)
-
 
 ### Assessments
 

@@ -135,57 +135,14 @@ declare module 'astro:content' {
 	>;
 
 	type ContentEntryMap = {
-		"blog": {
-"bits-2021.md": {
-	id: "bits-2021.md";
-  slug: "bits-2021";
+		"blog": Record<string, {
+  id: string;
+  slug: string;
   body: string;
   collection: "blog";
-  data: InferEntrySchema<"blog">
-} & { render(): Render[".md"] };
-"jedi-project.md": {
-	id: "jedi-project.md";
-  slug: "jedi-project";
-  body: string;
-  collection: "blog";
-  data: InferEntrySchema<"blog">
-} & { render(): Render[".md"] };
-"magellan.md": {
-	id: "magellan.md";
-  slug: "magellan";
-  body: string;
-  collection: "blog";
-  data: InferEntrySchema<"blog">
-} & { render(): Render[".md"] };
-"nasco-2024.md": {
-	id: "nasco-2024.md";
-  slug: "nasco-2024";
-  body: string;
-  collection: "blog";
-  data: InferEntrySchema<"blog">
-} & { render(): Render[".md"] };
-"space-odissey.md": {
-	id: "space-odissey.md";
-  slug: "space-odissey";
-  body: string;
-  collection: "blog";
-  data: InferEntrySchema<"blog">
-} & { render(): Render[".md"] };
-"tfg.md": {
-	id: "tfg.md";
-  slug: "tfg";
-  body: string;
-  collection: "blog";
-  data: InferEntrySchema<"blog">
-} & { render(): Render[".md"] };
-"vuelin.md": {
-	id: "vuelin.md";
-  slug: "vuelin";
-  body: string;
-  collection: "blog";
-  data: InferEntrySchema<"blog">
-} & { render(): Render[".md"] };
-};
+  data: any;
+  render(): Render[".md"];
+}>;
 "education": {
 "claret.md": {
 	id: "claret.md";
@@ -216,6 +173,57 @@ declare module 'astro:content' {
   body: string;
   collection: "experience";
   data: InferEntrySchema<"experience">
+} & { render(): Render[".md"] };
+};
+"project": {
+"bits-2021.md": {
+	id: "bits-2021.md";
+  slug: "bits-2021";
+  body: string;
+  collection: "project";
+  data: InferEntrySchema<"project">
+} & { render(): Render[".md"] };
+"jedi-project.md": {
+	id: "jedi-project.md";
+  slug: "jedi-project";
+  body: string;
+  collection: "project";
+  data: InferEntrySchema<"project">
+} & { render(): Render[".md"] };
+"magellan.md": {
+	id: "magellan.md";
+  slug: "magellan";
+  body: string;
+  collection: "project";
+  data: InferEntrySchema<"project">
+} & { render(): Render[".md"] };
+"nasco-2024.md": {
+	id: "nasco-2024.md";
+  slug: "nasco-2024";
+  body: string;
+  collection: "project";
+  data: InferEntrySchema<"project">
+} & { render(): Render[".md"] };
+"space-odissey.md": {
+	id: "space-odissey.md";
+  slug: "space-odissey";
+  body: string;
+  collection: "project";
+  data: InferEntrySchema<"project">
+} & { render(): Render[".md"] };
+"tfg.md": {
+	id: "tfg.md";
+  slug: "tfg";
+  body: string;
+  collection: "project";
+  data: InferEntrySchema<"project">
+} & { render(): Render[".md"] };
+"vuelin.md": {
+	id: "vuelin.md";
+  slug: "vuelin";
+  body: string;
+  collection: "project";
+  data: InferEntrySchema<"project">
 } & { render(): Render[".md"] };
 };
 
