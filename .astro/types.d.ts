@@ -136,6 +136,13 @@ declare module 'astro:content' {
 
 	type ContentEntryMap = {
 		"education": {
+"gottingen.md": {
+	id: "gottingen.md";
+  slug: "gottingen";
+  body: string;
+  collection: "education";
+  data: InferEntrySchema<"education">
+} & { render(): Render[".md"] };
 "jedi.md": {
 	id: "jedi.md";
   slug: "jedi";
@@ -185,6 +192,13 @@ declare module 'astro:content' {
 "nasco-2024.md": {
 	id: "nasco-2024.md";
   slug: "nasco-2024";
+  body: string;
+  collection: "project";
+  data: InferEntrySchema<"project">
+} & { render(): Render[".md"] };
+"personal-website.md": {
+	id: "personal-website.md";
+  slug: "personal-website";
   body: string;
   collection: "project";
   data: InferEntrySchema<"project">
