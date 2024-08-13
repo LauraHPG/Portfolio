@@ -175,6 +175,13 @@ declare module 'astro:content' {
   collection: "project";
   data: InferEntrySchema<"project">
 } & { render(): Render[".md"] };
+"grafy.md": {
+	id: "grafy.md";
+  slug: "grafy";
+  body: string;
+  collection: "project";
+  data: InferEntrySchema<"project">
+} & { render(): Render[".md"] };
 "jedi-project.md": {
 	id: "jedi-project.md";
   slug: "jedi-project";
