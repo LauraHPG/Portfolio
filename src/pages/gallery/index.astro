@@ -9,6 +9,15 @@ const photosGhana = await Astro.glob("/src/assets/ghana/*").then(files => {
   return files.map(file => file.default);
 });
 
+const photosGirona = await Astro.glob("/src/assets/girona/*").then(files => {
+  return files.map(file => file.default);
+});
+
+
+const photosAsturies = await Astro.glob("/src/assets/asturies/*").then(files => {
+  return files.map(file => file.default);
+});
+
 const drawings = await Astro.glob("/src/assets/drawings/*").then(files => {
   return files.map(file => file.default);
 });
@@ -110,6 +119,46 @@ const drawings = await Astro.glob("/src/assets/drawings/*").then(files => {
 		<main>
 			<section>
 				<h2>Photography</h2>
+				<h4>Asturias</h4>
+				<div class="gallery">
+					{
+					  photosAsturies
+						.map(({ src /* width and height is also available */ }) => {
+						  console.log(src);  // This will log each src to the console
+						  return (
+							<div class="gallery-item">
+							  <img
+								class="object-contain h-full rounded-lg"
+								src={src}
+								alt=""
+								loading="lazy"
+							  />
+							</div>
+						  );
+						})
+					}
+				</div>
+
+				<h4>Girona</h4>
+				<div class="gallery">
+					{
+					  photosGirona
+						.map(({ src /* width and height is also available */ }) => {
+						  console.log(src);  // This will log each src to the console
+						  return (
+							<div class="gallery-item">
+							  <img
+								class="object-contain h-full rounded-lg"
+								src={src}
+								alt=""
+								loading="lazy"
+							  />
+							</div>
+						  );
+						})
+					}
+				</div>
+
 				<h4>Ghana</h4>
 				<div class="gallery">
 					{
