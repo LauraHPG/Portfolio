@@ -14,6 +14,18 @@ const project = defineCollection({
 	}),
 });
 
+const galleryCollection = defineCollection({
+	type: 'content',
+	// Type-check frontmatter using a schema
+	schema: z.object({
+		title: z.string(),
+		description: z.string(),
+		pubDate: z.coerce.date(),
+		path: z.string(),
+		bestImages: z.array(z.string())
+	}),
+});
+
 const experience = defineCollection({
 	type: 'content',
 	// Type-check frontmatter using a schema
@@ -42,4 +54,4 @@ const education = defineCollection({
 
 
 
-export const collections = { project, experience, education };
+export const collections = { project, galleryCollection, experience, education };

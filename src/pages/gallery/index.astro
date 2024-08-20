@@ -3,24 +3,12 @@ import BaseHead from '../../components/BaseHead.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
+import { getCollection } from 'astro:content';
+import FormattedDate from '../../components/FormattedDate.astro';
 
-
-const photosGhana = await Astro.glob("/src/assets/ghana/*").then(files => {
-  return files.map(file => file.default);
-});
-
-const photosGirona = await Astro.glob("/src/assets/girona/*").then(files => {
-  return files.map(file => file.default);
-});
-
-
-const photosAsturies = await Astro.glob("/src/assets/asturies/*").then(files => {
-  return files.map(file => file.default);
-});
-
-const drawings = await Astro.glob("/src/assets/drawings/*").then(files => {
-  return files.map(file => file.default);
-});
+const posts = (await getCollection('galleryCollection')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
 ---
 
 <!doctype html>
@@ -30,56 +18,67 @@ const drawings = await Astro.glob("/src/assets/drawings/*").then(files => {
 		<style>
 			main {
 				width: 960px;
-			}	
-
-			.gallery {
-				column-count: 3;
-				column-gap: 1em;
-				row-gap: 1em;
-
 			}
-
-			.gallery-item {
-				-webkit-column-break-inside: avoid;
-				break-inside: avoid;
-				page-break-inside: avoid;
-				margin-bottom: 1em;
-				cursor: pointer;
-			}
-
-			.gallery-item img {
-				width: 100%;
-				height: auto;
-				display: block; 
-			}
-			
-			.overlay {
-				position: fixed;
-				top: 0;
-				left: 0;
-				width: 100%;
-				height: 100%;
-				background: rgba(0, 0, 0, 0.8);
+			ul {
 				display: flex;
-				justify-content: center;
-				align-items: center;
-				z-index: 1000;
+				flex-wrap: wrap;
+				gap: 2rem;
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
 			}
-			.overlay-content {
-				padding: auto;
-				align-items: center;
-				position: relative;
-			}  
+			ul li {
+				width: calc(50% - 1rem);
+				margin-bottom: 1em;
+				width: 100%;
+				margin-bottom: 1rem;
+				text-align: left;
+				border-radius: 12px;
+				padding-right: 1em;
+				padding-left: 1em;
+			}
+			ul li * {
+				text-decoration: none;
+				/* transition: 0.2s ease; */
+				transition: all .35s linear;
 
-			.overlay-img {
-				max-width: 90vw;  /* Fit the image within 90% of the viewport width */
-				max-height: 90vh; /* Fit the image within 90% of the viewport height */
-				object-fit: contain; /* Ensure the image keeps its aspect ratio */
-				border-radius: 10px;
-				transition: transform 0.25s ease; /* Smooth zoom transition */
 			}
-			.zoomable {
-				cursor: zoom-in;
+			ul li img {
+				width: 100%;
+				margin: 0;
+			}
+
+
+			h1{
+				color: black;
+				font-size: xx-large;
+				margin-bottom: 0;
+			}
+			a {
+				margin: 0;
+			}
+			.best-images {
+				display: flex;
+				gap: 10px;
+				height: 500px;
+			}
+			.best-images img {
+				width: 100px;
+				min-height: 100%;
+				object-fit: cover;
+				margin-right: 10px;
+			}
+			ul li:hover {
+				color: rgb(var(--accent));
+			}
+			ul li:hover {
+				box-shadow: var(--box-shadow);
+				transition: all .35s linear;
+			}
+			.date
+			{
+				color: gray;
+				margin-top: 0;
 			}
 
 			@media (max-width: 720px) {
@@ -99,144 +98,41 @@ const drawings = await Astro.glob("/src/assets/drawings/*").then(files => {
 					margin-bottom: 0;
 				}
 				ul li:first-child .title {
-					font-size: 1.563em;
-				}
-				.gallery {
-					column-count: 1;
+					font-size: 1em;
 				}
 			}
 		</style>
 	</head>
 	<body>
 		<Header />
-
-		<div class="overlay" id="overlay" style="display: none;">
-			<div class="overlay-content">
-				<img class="overlay-img" id="overlay-img" src="" alt="Enlarged" />
-			</div>
-		</div>
-
 		<main>
 			<section>
-				<h2>Photography</h2>
-				<h4>Asturias</h4>
-				<div class="gallery">
-					{
-					  photosAsturies
-						.map(({ src /* width and height is also available */ }) => {
-						  console.log(src);  // This will log each src to the console
-						  return (
-							<div class="gallery-item">
-							  <img
-								class="object-contain h-full rounded-lg"
-								src={src}
-								alt=""
-								loading="lazy"
-							  />
-							</div>
-						  );
-						})
-					}
-				</div>
-
-				<h4>Girona</h4>
-				<div class="gallery">
-					{
-					  photosGirona
-						.map(({ src /* width and height is also available */ }) => {
-						  console.log(src);  // This will log each src to the console
-						  return (
-							<div class="gallery-item">
-							  <img
-								class="object-contain h-full rounded-lg"
-								src={src}
-								alt=""
-								loading="lazy"
-							  />
-							</div>
-						  );
-						})
-					}
-				</div>
-
-				<h4>Ghana</h4>
-				<div class="gallery">
-					{
-					  photosGhana
-						.filter(({ src }) => src.includes("downsampled"))
-						.map(({ src /* width and height is also available */ }) => {
-						  console.log(src);  // This will log each src to the console
-						  return (
-							<div class="gallery-item">
-							  <img
-								class="object-contain h-full rounded-lg"
-								src={src}
-								alt=""
-								loading="lazy"
-							  />
-							</div>
-						  );
-						})
-					}
-				  </div>
-			</section>
-
-			<!-- <section>
-				<h2>Drawing</h2>
-				<div class="gallery">
-					{
-						drawings.map(({ src /* width and height is also available */ }) => (
-							<div class="gallery-item">
-							<img
-								class="object-contain h-full rounded-lg"
-								src={src}
-								alt=""
-								loading="lazy"
-							/>
-							</div>
+				<ul>
+						{
+						posts.map((post) => (
+							<li>
+								<a class='container' href={`/gallery/${post.slug}/`}>
+								
+								<p class="title-date">
+									<h1>{post.data.title}</h1>
+									<p class="date">
+										<FormattedDate date={post.data.pubDate} />
+									</p>
+								</p>
+									
+									<p class="best-images">
+										<img src={post.data.path + post.data.bestImages[0]} />
+										<img src={post.data.path + post.data.bestImages[1]} />
+										<img src={post.data.path + post.data.bestImages[2]} />
+									</p>
+									
+								</a>
+							</li>
 						))
 					}
-				</div>
-			</section> -->
+				</ul>
+			</section>
 		</main>
 		<Footer />
-		<script>
-			var imagenes = document.getElementsByTagName("img");
-			var overlay = document.getElementById('overlay');
-
-			for (var i=0; i<imagenes.length; i++)
-			{          
-				imagenes[i].addEventListener('click', function() {
-					var src = this.src;
-					console.log(src)
-					
-					var match = src.match(/^(.*\/IMG_\d+)/) + '.JPG';
-					var originalSrc = src.replace('_downsampled', ''); 
-					var overlayImg = document.getElementById('overlay-img');
-					
-						overlayImg.src = this.src;
-					overlay.style.display = 'flex';
-				});	
-			}
-
-			const overlayImg = document.getElementById('overlay-img');
-
-			function hideOverlay() {
-				overlay.style.display = 'none';
-			}
-
-			overlayImg.addEventListener('click', function(event) {
-				event.stopPropagation(); 
-				console.log('Image clicked!');
-			});
-
-			overlay.addEventListener('click', function() {
-				console.log('Overlay clicked!');
-				var overlayImg = document.getElementById('overlay-img');
-				overlayImg.src = ""
-				hideOverlay(); 
-			});
-	
-		  </script>
 	</body>
 </html>

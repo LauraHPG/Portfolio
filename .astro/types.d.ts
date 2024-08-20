@@ -167,6 +167,29 @@ declare module 'astro:content' {
   data: InferEntrySchema<"experience">
 } & { render(): Render[".md"] };
 };
+"galleryCollection": {
+"asturies.md": {
+	id: "asturies.md";
+  slug: "asturies";
+  body: string;
+  collection: "galleryCollection";
+  data: InferEntrySchema<"galleryCollection">
+} & { render(): Render[".md"] };
+"ghana.md": {
+	id: "ghana.md";
+  slug: "ghana";
+  body: string;
+  collection: "galleryCollection";
+  data: InferEntrySchema<"galleryCollection">
+} & { render(): Render[".md"] };
+"girona.md": {
+	id: "girona.md";
+  slug: "girona";
+  body: string;
+  collection: "galleryCollection";
+  data: InferEntrySchema<"galleryCollection">
+} & { render(): Render[".md"] };
+};
 "project": {
 "bits-2021.md": {
 	id: "bits-2021.md";

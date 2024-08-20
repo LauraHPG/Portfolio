@@ -1,0 +1,169 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+
+
+type Props = CollectionEntry<'galleryCollection'>['data'];
+
+const { title, description, pubDate, path, bestImages } = Astro.props;
+
+// Import all images from specific folders
+const allImages = import.meta.glob('/src/assets/**/*.{png,jpg,JPG}', { eager: true });
+
+const splittedPath = path.split('/');
+const lastSegment = splittedPath.pop() || splittedPath.pop();  // handle potential trailing slash
+
+const photos = Object.keys(allImages).filter((imgPath) => imgPath.includes(lastSegment));
+---
+
+<html lang="en">
+	<head>
+		<BaseHead title={title} description={description} />
+		<style>
+			main {
+                width: 960px;
+
+			}
+			.gallery {
+				column-count: 3;
+				column-gap: 1em;
+				row-gap: 1em;
+
+			}
+
+			.gallery-item {
+				-webkit-column-break-inside: avoid;
+				break-inside: avoid;
+				page-break-inside: avoid;
+				margin-bottom: 1em;
+				cursor: pointer;
+			}
+
+			.gallery-item img {
+				width: 100%;
+				height: auto;
+				display: block; 
+			}
+			
+			.overlay {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: rgba(0, 0, 0, 0.8);
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				z-index: 1000;
+			}
+			.overlay-content {
+				padding: auto;
+				align-items: center;
+				position: relative;
+			}  
+
+			.overlay-img {
+				max-width: 90vw;  /* Fit the image within 90% of the viewport width */
+				max-height: 90vh; /* Fit the image within 90% of the viewport height */
+				object-fit: contain; /* Ensure the image keeps its aspect ratio */
+				border-radius: 10px;
+				transition: transform 0.25s ease; /* Smooth zoom transition */
+			}
+			.zoomable {
+				cursor: zoom-in;
+			}
+
+			@media (max-width: 720px) {
+				main
+				{
+					max-width: 85%;
+					padding: 1em;
+				}
+				ul {
+					gap: 0.5em;
+				}
+				ul li {
+					width: 100%;
+					text-align: center;
+				}
+				ul li:first-child {
+					margin-bottom: 0;
+				}
+				ul li:first-child .title {
+					font-size: 1.563em;
+				}
+				.gallery {
+					column-count: 1;
+				}
+			}
+		</style>
+	</head>
+
+	<body>
+		<Header />
+		<main>
+            <div class="overlay" id="overlay" style="display: none;">
+                <div class="overlay-content">
+                    <img class="overlay-img" id="overlay-img" src="" alt="Enlarged" />
+                </div>
+            </div>
+
+			<h1>{title}</h1>
+				<div class="gallery">
+					{photos.map((src, index) => ( (src.includes('downsampled')) &&
+					  <div class="gallery-item" key={index}>
+						<img
+						  class="object-contain h-full rounded-lg"
+						  src={src}
+						  alt={`Image ${index}`}
+						  loading="lazy"
+						/>
+					  </div>
+					))}
+				  </div>
+		</main>
+		<Footer />
+        <script>
+			var imagenes = document.getElementsByTagName("img");
+			var overlay = document.getElementById('overlay');
+
+			for (var i=0; i<imagenes.length; i++)
+			{          
+				imagenes[i].addEventListener('click', function() {
+					var src = this.src;
+					console.log(src)
+					
+					var match = src.match(/^(.*\/IMG_\d+)/) + '.JPG';
+					var originalSrc = src.replace('_downsampled', ''); 
+					var overlayImg = document.getElementById('overlay-img');
+					
+                    overlayImg.src = this.src;
+					overlay.style.display = 'flex';
+				});	
+			}
+
+			const overlayImg = document.getElementById('overlay-img');
+
+			function hideOverlay() {
+				overlay.style.display = 'none';
+			}
+
+			overlayImg.addEventListener('click', function(event) {
+				event.stopPropagation(); 
+				console.log('Image clicked!');
+			});
+
+			overlay.addEventListener('click', function() {
+				console.log('Overlay clicked!');
+				var overlayImg = document.getElementById('overlay-img');
+				overlayImg.src = ""
+				hideOverlay(); 
+			});
+	
+		  </script>
+	</body>
+</html>

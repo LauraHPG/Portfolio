@@ -1,9 +1,9 @@
 ---
-import { type CollectionEntry, getCollection } from 'astro:content';
-import BlogPost from '../../layouts/BlogPost.astro';
+import { CollectionEntry, getCollection } from 'astro:content';
+import GalleryCollection from '../../layouts/GalleryCollection.astro';
 
-const posts = await getCollection('project');
-type Props = CollectionEntry<'project'>;
+const posts = await getCollection('galleryCollection');
+type Props = CollectionEntry<'galleryCollection'>;
 
 const { slug } = Astro.params;
 const post = posts.find((page) => page.slug === slug);
@@ -11,6 +11,6 @@ if (!post) return Astro.redirect("/404");
 const { Content } = await post.render();
 ---
 
-<BlogPost {...post.data}>
+<GalleryCollection {...post.data}>
 	<Content />
-</BlogPost>
+</GalleryCollection>
