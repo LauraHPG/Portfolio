@@ -1,0 +1,16 @@
+---
+import { CollectionEntry, getCollection } from 'astro:content';
+import GalleryCollection from '../../layouts/GalleryCollection.astro';
+
+const posts = await getCollection('galleryCollection');
+type Props = CollectionEntry<'galleryCollection'>;
+
+const { slug } = Astro.params;
+const post = posts.find((page) => page.slug === slug);
+if (!post) return Astro.redirect("/404");
+const { Content } = await post.render();
+---
+
+<GalleryCollection {...post.data}>
+	<Content />
+</GalleryCollection>

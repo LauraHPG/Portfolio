@@ -118,7 +118,7 @@ const photos = Object.keys(images).filter((imgPath) => imgPath.includes(lastSegm
 				<div class="gallery">
 					{photos.map((src, index) => ( (src.includes('downsampled')) &&
 					  <div class="gallery-item" key={index}>
-						<img
+						<Image
 						  class="object-contain h-full rounded-lg"
 						  src={src}
 						  alt={`Image ${index}`}

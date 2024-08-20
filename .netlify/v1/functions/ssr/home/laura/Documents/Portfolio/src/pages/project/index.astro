@@ -1,0 +1,136 @@
+---
+import BaseHead from '../../components/BaseHead.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
+import { getCollection } from 'astro:content';
+import FormattedDate from '../../components/FormattedDate.astro';
+
+const posts = (await getCollection('project')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<style>
+			main {
+				width: 960px;
+			}
+			ul {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 2rem;
+				list-style-type: none;
+				margin: 0;
+				padding: 0;
+			}
+			ul li {
+				width: calc(50% - 1rem);
+				margin-bottom: 1em;
+			}
+			ul li * {
+				text-decoration: none;
+				/* transition: 0.2s ease; */
+				transition: all .35s linear;
+
+			}
+			ul li:first-child {
+				width: 100%;
+				margin-bottom: 1rem;
+				text-align: center;
+			}
+			ul li:first-child img {
+				width: 100%;
+			}
+			ul li:first-child .title {
+				font-size: 2.369rem;
+			}
+			ul li .img-container
+			{
+				max-width: 720;
+				max-height: 360;
+				overflow: hidden; 
+				border-radius: 12px;
+				aspect-ratio: 5/3;
+				position: relative;
+			}
+			ul li .img-container img {
+				min-width: 100%;
+				min-height: 100%;
+				margin: 0;
+				padding: 0;
+				width: auto;
+				object-fit: cover;
+				position: absolute;    
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+			}
+			.title {
+				margin: 0;
+				color: rgb(var(--black));
+				line-height: 1;
+			}
+			.date {
+				margin: 0;
+				color: rgb(var(--gray));
+			}
+			ul li a:hover h4,
+			ul li a:hover .date {
+				color: rgb(var(--accent));
+			}
+			ul a:hover .img-container {
+				box-shadow: var(--box-shadow);
+			}
+			@media (max-width: 720px) {
+				main
+				{
+					max-width: 85%;
+					padding: 1em;
+				}
+				ul {
+					gap: 0.5em;
+				}
+				ul li {
+					width: 100%;
+					text-align: center;
+				}
+				ul li:first-child {
+					margin-bottom: 0;
+				}
+				ul li:first-child .title {
+					font-size: 1em;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<Header />
+		<main>
+			<section>
+				<ul>
+					{
+						posts.map((post) => (
+							<li>
+								<a href={`/project/${post.slug}/`}>
+								<div class="img-container">
+									<img width={720} height={360} src={post.data.heroImage} alt="" />
+								</div>
+								<h4 class="title">{post.data.title}</h4>
+								<p class="date">
+									<FormattedDate date={post.data.pubDate} />
+								</p>
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>
