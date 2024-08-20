@@ -4,19 +4,20 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
-
+import type { ImageMetadata } from 'astro';
 
 type Props = CollectionEntry<'galleryCollection'>['data'];
 
 const { title, description, pubDate, path, bestImages } = Astro.props;
 
 // Import all images from specific folders
-const allImages = import.meta.glob('/src/assets/**/*.{png,jpg,JPG}', { eager: true });
+// const allImages = import.meta.glob('/src/assets/**/*.{png,jpg,JPG}', { eager: true });
+const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/**/*.{png,jpg,JPG}');
 
 const splittedPath = path.split('/');
 const lastSegment = splittedPath.pop() || splittedPath.pop();  // handle potential trailing slash
 
-const photos = Object.keys(allImages).filter((imgPath) => imgPath.includes(lastSegment));
+const photos = Object.keys(images).filter((imgPath) => imgPath.includes(lastSegment));
 ---
 
 <html lang="en">
