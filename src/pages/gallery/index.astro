@@ -5,10 +5,12 @@ import Footer from '../../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
 import { getCollection } from 'astro:content';
 import FormattedDate from '../../components/FormattedDate.astro';
+import { Image } from 'astro:assets';
 
 const posts = (await getCollection('galleryCollection')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
+
 ---
 
 <!doctype html>
@@ -121,9 +123,9 @@ const posts = (await getCollection('galleryCollection')).sort(
 								</p>
 									
 									<p class="best-images">
-										<img src={post.data.path + post.data.bestImages[0]} />
-										<img src={post.data.path + post.data.bestImages[1]} />
-										<img src={post.data.path + post.data.bestImages[2]} />
+										<Image src={post.data.path.slice(2) + post.data.bestImages[0]} alt='' width={100} height={100}/>
+										<Image src={post.data.path.slice(2) + post.data.bestImages[1]} alt='' width={100} height={100}/>
+										<Image src={post.data.path.slice(2) + post.data.bestImages[2]} alt='' width={100} height={100}/>
 									</p>
 									
 								</a>
