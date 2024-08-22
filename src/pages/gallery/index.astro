@@ -127,7 +127,7 @@ const photos = await Astro.glob('/src/assets/**/*.{jpg,png,JPG}').then(files => 
 									
 									<p class="best-images">
 										{post.data.bestImages.map((image) => (
-											<Image src={image} width={100} height={100} alt="" />
+											<img src={image} alt="" />
 										))}
 									</p>
 									
