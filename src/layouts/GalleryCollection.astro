@@ -15,10 +15,10 @@ const { title, description, pubDate, path, bestImages } = Astro.props;
 // const allImages = import.meta.glob('/src/assets/**/*.{png,jpg,JPG}', { eager: true });
 const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/**/*.{png,jpg,JPG}');
 
-const splittedPath = path.split('/');
-const lastSegment = splittedPath.pop() || splittedPath.pop();  // handle potential trailing slash
+// const splittedPath = path.split('/');
+// const lastSegment = splittedPath.pop() || splittedPath.pop();  // handle potential trailing slash
 
-const photos = Object.keys(images).filter((imgPath) => imgPath.includes(lastSegment));
+const photos = Object.keys(images); //.filter((imgPath) => imgPath.includes(lastSegment));
 ---
 
 <html lang="en">
@@ -121,7 +121,7 @@ const photos = Object.keys(images).filter((imgPath) => imgPath.includes(lastSegm
 						<Image
 						  class="object-contain h-full rounded-lg"
 						  src={src}
-						  alt={`Image ${index}`}
+						  alt=''
 						  loading="lazy"
                           width={100}
                           height={100}
