@@ -132,18 +132,6 @@ const photos = await Astro.glob('/src/assets/**/*.{jpg,png,JPG}').then(files => 
 						  );
 						})}
 					  
-					<!-- {photos.map((src, index) => ( (src.includes('downsampled')) &&
-					  <div class="gallery-item" key={index}>
-						<Image
-						  class="object-contain h-full rounded-lg"
-						  src={src}
-						  alt=''
-						  loading="lazy"
-                          width={100}
-                          height={100}
-						/>
-					  </div>
-					))} -->
 				  </div>
 		</main>
 		<Footer />
