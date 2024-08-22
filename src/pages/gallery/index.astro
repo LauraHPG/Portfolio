@@ -10,7 +10,9 @@ import { Image } from 'astro:assets';
 const posts = (await getCollection('galleryCollection')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
-
+const photos = await Astro.glob('/src/assets/**/*.{jpg,png,JPG}').then(files => {
+  return files.map(file => file.default);
+});
 ---
 
 <!doctype html>
@@ -123,9 +125,18 @@ const posts = (await getCollection('galleryCollection')).sort(
 								</p>
 									
 									<p class="best-images">
-										<Image src={post.data.path.slice(2) + post.data.bestImages[0]} alt='' width={100} height={100}/>
-										<Image src={post.data.path.slice(2) + post.data.bestImages[1]} alt='' width={100} height={100}/>
-										<Image src={post.data.path.slice(2) + post.data.bestImages[2]} alt='' width={100} height={100}/>
+										{post.data.bestImages.map((imageKey) => 
+											photos
+												.filter(photo => photo.src.includes(imageKey))
+												.map(({ src }) => (
+												<img
+													src={src}
+													alt=""
+													loading="lazy"
+												/>
+												))
+											)}
+
 									</p>
 									
 								</a>
