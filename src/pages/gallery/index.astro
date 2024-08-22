@@ -99,11 +99,8 @@ const photos = await Astro.glob('/src/assets/**/*.{jpg,png,JPG}').then(files => 
 					width: 100%;
 					text-align: center;
 				}
-				ul li:first-child {
-					margin-bottom: 0;
-				}
-				ul li:first-child .title {
-					font-size: 1em;
+				.best-images > *:not(:nth-child(2)) {
+					display: none;
 				}
 			}
 		</style>
