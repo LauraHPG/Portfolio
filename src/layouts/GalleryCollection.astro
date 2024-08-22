@@ -120,7 +120,7 @@ const photos = await Astro.glob('/src/assets/**/*.{jpg,png,JPG}').then(files => 
 						.map(({ src, width, height }) => {
 						  return (
 							<div class="gallery-item">
-							  <Image
+							  <img
 								class="object-contain h-full rounded-lg"
 								src={src}
 								alt=""
