@@ -125,18 +125,33 @@ const photos = await Astro.glob('/src/assets/**/*.{jpg,png,JPG}').then(files => 
 								</p>
 									
 									<p class="best-images">
-										{post.data.bestImages.map((imageKey) => 
-											photos
-												.filter(photo => photo.src.includes(imageKey))
-												.map(({ src }) => (
+										{photos
+											.filter(photo => photo.src.includes(post.data.bestImages[0]))// Replace 'your-string' with the string you want to filter by
+											.map(({ src }) => {
+											return (
 												<img
 													src={src}
-													alt=""
-													loading="lazy"
 												/>
-												))
-											)}
-
+											);
+											})}
+										{photos
+											.filter(photo => photo.src.includes(post.data.bestImages[1])) // Replace 'your-string' with the string you want to filter by
+											.map(({ src }) => {
+											return (
+												<img
+													src={src}
+												/>
+											);
+											})}
+										{photos
+											.filter(photo => photo.src.includes(post.data.bestImages[2])) // Replace 'your-string' with the string you want to filter by
+											.map(({ src }) => {
+											return (
+												<img
+													src={src}
+												/>
+											);
+											})}
 									</p>
 									
 								</a>
