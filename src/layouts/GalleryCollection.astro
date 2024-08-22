@@ -11,14 +11,13 @@ type Props = CollectionEntry<'galleryCollection'>['data'];
 
 const { title, description, pubDate, path, bestImages } = Astro.props;
 
-// Import all images from specific folders
-// const allImages = import.meta.glob('/src/assets/**/*.{png,jpg,JPG}', { eager: true });
-const images = import.meta.glob<{ default: ImageMetadata }>('/src/assets/**/*.{png,jpg,JPG}');
+const splittedPath = path.split('/');
+const lastSegment = splittedPath.pop() || splittedPath.pop();
+const photos = await Astro.glob('/src/assets/**/*.{jpg,png,JPG}').then(files => {
+  return files.map(file => file.default);
+});
 
-// const splittedPath = path.split('/');
-// const lastSegment = splittedPath.pop() || splittedPath.pop();  // handle potential trailing slash
 
-const photos = Object.keys(images); //.filter((imgPath) => imgPath.includes(lastSegment));
 ---
 
 <html lang="en">
@@ -116,7 +115,24 @@ const photos = Object.keys(images); //.filter((imgPath) => imgPath.includes(last
 
 			<h1>{title}</h1>
 				<div class="gallery">
-					{photos.map((src, index) => ( (src.includes('downsampled')) &&
+					{photos
+						.filter(photo => photo.src.includes(lastSegment)) // Replace 'your-string' with the string you want to filter by
+						.map(({ src, width, height }) => {
+						  return (
+							<div class="gallery-item">
+							  <img
+								class="object-contain h-full rounded-lg"
+								src={src}
+								alt=""
+								loading="lazy"
+								width={width}
+								height={height}
+							  />
+							</div>
+						  );
+						})}
+					  
+					<!-- {photos.map((src, index) => ( (src.includes('downsampled')) &&
 					  <div class="gallery-item" key={index}>
 						<Image
 						  class="object-contain h-full rounded-lg"
@@ -127,7 +143,7 @@ const photos = Object.keys(images); //.filter((imgPath) => imgPath.includes(last
                           height={100}
 						/>
 					  </div>
-					))}
+					))} -->
 				  </div>
 		</main>
 		<Footer />
