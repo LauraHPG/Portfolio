@@ -63,15 +63,17 @@ const photos = await Astro.glob('/src/assets/**/*.{jpg,png,JPG}').then(files => 
 				margin: 0;
 			}
 			.best-images {
-				display: flex;
-				gap: 10px;
-				height: 500px;
+				display: flex; 
+				gap: 10px; 
+				overflow: hidden;
+				justify-content: space-between;
 			}
+
 			.best-images img {
-				width: 100px;
-				min-height: 100%;
-				object-fit: cover;
-				margin-right: 10px;
+				max-width: 32%; 
+				height: 500px; 
+				object-fit: cover; 
+				display: block; 
 			}
 			ul li:hover {
 				color: rgb(var(--accent));
@@ -99,8 +101,15 @@ const photos = await Astro.glob('/src/assets/**/*.{jpg,png,JPG}').then(files => 
 					width: 100%;
 					text-align: center;
 				}
+				.best-images{
+					justify-content: center;
+				}
 				.best-images > *:not(:nth-child(2)) {
 					display: none;
+				}
+				.best-images img {
+					max-width: 100%;
+					height: 500px;
 				}
 			}
 		</style>
