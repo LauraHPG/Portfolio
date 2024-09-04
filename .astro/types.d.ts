@@ -175,6 +175,13 @@ declare module 'astro:content' {
   collection: "galleryCollection";
   data: InferEntrySchema<"galleryCollection">
 } & { render(): Render[".md"] };
+"barcelona.md": {
+	id: "barcelona.md";
+  slug: "barcelona";
+  body: string;
+  collection: "galleryCollection";
+  data: InferEntrySchema<"galleryCollection">
+} & { render(): Render[".md"] };
 "ghana.md": {
 	id: "ghana.md";
   slug: "ghana";

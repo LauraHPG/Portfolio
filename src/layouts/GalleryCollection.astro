@@ -9,7 +9,7 @@ import { Image } from 'astro:assets';
 
 type Props = CollectionEntry<'galleryCollection'>['data'];
 
-const { title, description, pubDate, path, bestImages } = Astro.props;
+const { title, description, pubDate, path, bestImages, camera } = Astro.props;
 
 const splittedPath = path.split('/');
 const lastSegment = splittedPath.pop() || splittedPath.pop();
@@ -114,6 +114,9 @@ const photos = await Astro.glob('/src/assets/**/*.{jpg,png,JPG}').then(files => 
             </div>
 
 			<h1>{title}</h1>
+			{ camera && <h5>📷 {camera}</h5> }
+			{description && <p>{description}</p>}
+
 				<div class="gallery">
 					{photos
 						.filter(photo => photo.src.includes(lastSegment)) // Replace 'your-string' with the string you want to filter by

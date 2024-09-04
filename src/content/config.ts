@@ -22,7 +22,8 @@ const galleryCollection = defineCollection({
 		description: z.string(),
 		pubDate: z.coerce.date(),
 		path: z.string(),
-		bestImages: z.array(z.string())
+		bestImages: z.array(z.string()),
+		camera: z.string().optional()
 	}),
 });
 
