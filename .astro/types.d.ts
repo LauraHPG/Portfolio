@@ -196,6 +196,13 @@ declare module 'astro:content' {
   collection: "galleryCollection";
   data: InferEntrySchema<"galleryCollection">
 } & { render(): Render[".md"] };
+"goettingen.md": {
+	id: "goettingen.md";
+  slug: "goettingen";
+  body: string;
+  collection: "galleryCollection";
+  data: InferEntrySchema<"galleryCollection">
+} & { render(): Render[".md"] };
 };
 "project": {
 "bits-2021.md": {
